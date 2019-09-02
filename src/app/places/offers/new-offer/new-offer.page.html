@@ -1,0 +1,130 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/places/tabs/offers"></ion-back-button>
+    </ion-buttons>
+    <ion-title>New Offer</ion-title>
+    <ion-buttons slot="primary">
+      <ion-button
+        (click)="handleCreateOffer()"
+        [disabled]="!form.valid || !form.get('image').value"
+      >
+        <ion-icon name="checkmark" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="form">
+    <ion-grid>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-label position="floating">
+              Title
+            </ion-label>
+            <ion-input
+              type="text"
+              autocomplete
+              autocorrect
+              formControlName="title"
+            ></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngIf="!form.get('title').valid && form.get('title').touched">
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-card-subtitle>
+            <p>Required!</p>
+          </ion-card-subtitle>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-label position="floating">
+              Short Description
+            </ion-label>
+            <ion-textarea rows="3" formControlName="description">
+            </ion-textarea>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row
+        *ngIf="
+          !form.get('description').valid && form.get('description').touched
+        "
+      >
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-card-subtitle>
+            <p>Must contain 1-150 characters!</p>
+          </ion-card-subtitle>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-label position="floating">
+              Price
+            </ion-label>
+            <ion-input type="number" formControlName="price"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-label position="floating">
+              Rooms Available
+            </ion-label>
+            <ion-input
+              type="number"
+              formControlName="roomsAvailable"
+              value="0"
+            ></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngIf="!form.get('price').valid && form.get('price').touched">
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-card-subtitle>
+            <p>Must be above 10 USD!</p>
+          </ion-card-subtitle>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="3" offset-sm="3">
+          <ion-item>
+            <ion-label position="floating">
+              Date available from
+            </ion-label>
+            <ion-datetime
+              [min]="dateFrom"
+              [max]="dateTo"
+              formControlName="dateFrom"
+            ></ion-datetime>
+          </ion-item>
+        </ion-col>
+        <ion-col size-sm="3">
+          <ion-item>
+            <ion-label position="floating">
+              to
+            </ion-label>
+            <ion-datetime
+              [min]="dateFrom"
+              [max]="dateTo"
+              formControlName="dateTo"
+            ></ion-datetime>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <app-image-picker
+            [showPreview]="form.get('image').value"
+            (imagePick)="handleImagePick($event)"
+          ></app-image-picker>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>

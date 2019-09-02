@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/places/tabs/discover"></ion-back-button>
+    </ion-buttons>
+    <ion-title
+      ><h1>{{ isLoading ? "Loading..." : place.title }}</h1></ion-title
+    >
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid *ngIf="!isLoading">
+    <ion-row>
+      <ion-col size-md="6" offset-md="3">
+        <ion-card text-center>
+          <ion-card-header>
+            <h2>{{ place.title }}</h2>
+          </ion-card-header>
+          <ion-img [src]="place.image"></ion-img>
+          <ion-card-content>
+            <p>{{ place.description }}</p>
+          </ion-card-content>
+          <ion-button
+            [disabled]="!isBookable"
+            color="primary"
+            margin
+            (click)="handleBookPlace()"
+            >Book Me</ion-button
+          >
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

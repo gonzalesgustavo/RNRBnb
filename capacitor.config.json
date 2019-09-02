@@ -1,0 +1,7 @@
+{
+  "appId": "com.gonzalesgustavo.rnrbnb",
+  "appName": "rnrbnb",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "www"
+}

@@ -1,0 +1,25 @@
+<ion-item>
+  <ion-thumbnail slot="start">
+    <ion-img [src]="offer.image"></ion-img>
+  </ion-thumbnail>
+  <ion-label>
+    <h2>{{ offer.title }}</h2>
+    <div class="offer-details">
+      <ion-icon name="md-calendar" slot="icon-only" color="tertiary"></ion-icon>
+      <ion-text color="primary" class="space-left" color="secondary">
+        {{ offer.availableFrom | date }}
+      </ion-text>
+      <span class="space-left"> to </span>
+      <ion-icon
+        name="md-calendar"
+        slot="icon-only"
+        class="space-left"
+        color="tertiary"
+      ></ion-icon>
+      <ion-text color="primary" class="space-left" color="secondary">
+        {{ offer.availableTo | date }}
+      </ion-text>
+    </div>
+  </ion-label>
+  <ion-icon name="arrow-round-forward" slot="end"></ion-icon>
+</ion-item>

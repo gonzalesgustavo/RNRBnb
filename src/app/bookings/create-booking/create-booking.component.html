@@ -1,0 +1,139 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title> Book {{ location.title }} </ion-title>
+    <ion-buttons slot="primary">
+      <ion-button (click)="handleCancelClose()">
+        <ion-icon name="close" icon-only></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding text-center *ngIf="location.image">
+  <form (ngSubmit)="handleBookingSubmit()" #bookForm="ngForm">
+    <ion-grid>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <div class="title">
+            <h3>{{ location.title }}</h3>
+            <ion-img [src]="location.image"></ion-img>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-card>
+            <ion-card-header>
+              <h2>Ready To Book Me?</h2>
+            </ion-card-header>
+            <ion-card-content>
+              <ion-grid>
+                <ion-row>
+                  <ion-col>
+                    <ion-item>
+                      <ion-label position="floating">
+                        First Name
+                      </ion-label>
+                      <ion-input
+                        type="text"
+                        ngModel
+                        name="fName"
+                        required
+                      ></ion-input>
+                    </ion-item>
+                  </ion-col>
+                  <ion-col>
+                    <ion-item>
+                      <ion-label position="floating">
+                        Last name
+                      </ion-label>
+                      <ion-input
+                        type="text"
+                        ngModel
+                        name="lName"
+                        required
+                      ></ion-input>
+                    </ion-item>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col>
+                    <ion-item>
+                      <ion-label position="floating">
+                        Guest #
+                      </ion-label>
+                      <ion-select name="guestNum" [ngModel]="'2'">
+                        <div *ngFor="let i of getRoomsAvailable()">
+                          <ion-select-option value="{{ i }}">{{
+                            i
+                          }}</ion-select-option>
+                        </div>
+                      </ion-select>
+                    </ion-item>
+                  </ion-col>
+                  <ion-col>
+                    <ion-item>
+                      <ion-label position="floating">
+                        Accommodations
+                      </ion-label>
+                      <ion-select name="acomod" [ngModel]="'1'">
+                        <ion-select-option value="1">none</ion-select-option>
+                        <ion-select-option value="2"
+                          >wheelchair</ion-select-option
+                        >
+                        <ion-select-option value="3"
+                          >Hearing Impaired</ion-select-option
+                        >
+                        <ion-select-option value="4"
+                          >Sight Impaired</ion-select-option
+                        >
+                      </ion-select>
+                    </ion-item>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col>
+                    <ion-item>
+                      <ion-label postion="floating">
+                        from
+                      </ion-label>
+                      <ion-datetime
+                        display-format="MMM DD YYYY"
+                        picker-format="YY MMM DD"
+                        [min]="location.availableFrom.toISOString()"
+                        [max]="location.availableTo.toISOString()"
+                        [ngModel]="startDate"
+                        name="dateFrom"
+                        required
+                        #fromDateCtrl="ngModel"
+                      ></ion-datetime>
+                    </ion-item>
+                  </ion-col>
+                  <ion-col>
+                    <ion-item>
+                      <ion-label postion="floating">
+                        to
+                      </ion-label>
+                      <ion-datetime
+                        display-format="MMM DD YYYY"
+                        picker-format="YY MMM DD"
+                        [min]="fromDateCtrl.value"
+                        [max]="location.availableTo.toISOString()"
+                        [ngModel]="endDate"
+                        name="dateTo"
+                        required
+                      ></ion-datetime>
+                    </ion-item>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-button color="primary" type="submit" [disabled]="!bookForm.valid"
+      >Register</ion-button
+    >
+  </form>
+</ion-content>
